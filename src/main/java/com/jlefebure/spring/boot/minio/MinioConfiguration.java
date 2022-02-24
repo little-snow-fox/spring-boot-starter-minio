@@ -68,13 +68,14 @@ public class MinioConfiguration {
             LOGGER.debug("Checking if bucket {} exists", minioConfigurationProperties.getBucket());
             boolean b = minioClient.bucketExists(minioConfigurationProperties.getBucket());
             if (!b) {
-                throw new InvalidBucketNameException(minioConfigurationProperties.getBucket(), "Bucket does not exists");
+                LOGGER.error("Bucket does not exists, " + minioConfigurationProperties.getBucket());
+                // throw new InvalidBucketNameException(minioConfigurationProperties.getBucket(), "Bucket does not exists");
             }
         } catch (InvalidBucketNameException | NoSuchAlgorithmException | InsufficientDataException | IOException |
                 InvalidKeyException | NoResponseException | XmlPullParserException |
                 ErrorResponseException | InternalException e) {
             LOGGER.error("Error while checking bucket", e);
-            throw e;
+            // throw e;
         }
 
         return minioClient;
